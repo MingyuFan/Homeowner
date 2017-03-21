@@ -12,12 +12,12 @@ class ItemsViewController: UITableViewController {
     override func viewDidLoad() {
          super.viewDidLoad()
         
-        let statusBarHeight = UIApplication.shared.statusBarFrame.height
+        //let statusBarHeight = UIApplication.shared.statusBarFrame.height
         
-        let inserts = UIEdgeInsets(top: statusBarHeight, left: 0, bottom: 0, right: 0)
+        //let inserts = UIEdgeInsets(top: statusBarHeight, left: 0, bottom: 0, right: 0)
         
-        tableView.contentInset = inserts
-        tableView.scrollIndicatorInsets = inserts
+        //tableView.contentInset = inserts
+        //tableView.scrollIndicatorInsets = inserts
         
         //tableView.rowHeight = 65
         tableView.rowHeight = UITableViewAutomaticDimension
@@ -25,7 +25,7 @@ class ItemsViewController: UITableViewController {
     }
     var itemStore: ItemStore!
     
-    @IBAction func addNewItem(_ sender: UIButton) {
+    @IBAction func addNewItem(_ sender: UIBarButtonItem) {
         let newItem = itemStore.createItem();
         
         if let index = itemStore.allItems.index(of: newItem) {
@@ -34,16 +34,16 @@ class ItemsViewController: UITableViewController {
         }
     }
     
-    @IBAction func toogleEditingMode(_ sender: UIButton) {
-        if isEditing {
-            sender.setTitle("Edit", for: .normal)
-            
-            setEditing(false, animated: true)
-        } else {
-            sender.setTitle("Done", for: .normal)
-            setEditing(true, animated: true)
-        }
-    }
+    //@IBAction func toogleEditingMode(_ sender: UIButton) {
+     //   if isEditing {
+     //       sender.setTitle("Edit", for: .normal)
+      //
+      //      setEditing(false, animated: true)
+      //  } else {
+      //      sender.setTitle("Done", for: .normal)
+      //      setEditing(true, animated: true)
+      //  }
+   // }
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return itemStore.allItems.count
     }
@@ -95,4 +95,15 @@ class ItemsViewController: UITableViewController {
         }
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        tableView.reloadData()
+    }
+    
+    required init?(coder aDecoder: NSCoder ) {
+        super.init(coder: aDecoder)
+        
+        navigationItem.leftBarButtonItem = editButtonItem
+    }
 }
